@@ -1,3 +1,5 @@
+OBJS= tokenizer.o history.o uimain.o
+
 # compiler flags.  -g for debug, -O3 for optimization
 
 CFLAGS=-g -O3
@@ -16,13 +18,15 @@ all: tokenizer
 
 uimain.o: history.h tokenizer.h
 
+history.o: history.h
+
 tokenizer.o: tokenizer.h
 
 
 
 # $@=target, $^=prerequisites
 
-tokenizer : tokenizer.o uimain.o
+tokenizer : history.o tokenizer.o uimain.o
 
 	cc -o $@ $^ $(CFLAGS)
 
