@@ -1,23 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include "history.h"
 #include "tokenizer.h"
+
+int digit(char c) {
+  return (c >= '0' && c <= '9');
+}
 
 void print_wanted_token(char* str, List *list){
   int strSize = token_terminator(str) - token_start(str);
   int valid = 1;
   char *tempStr = malloc(strSize - 1);
-  
+
   int i;
   for (i = 1; i < strSize; i++) {
-    if (!isdigit(str[i])) {
+    if (!digit(str[i])) {
       valid = 0;
       break;
     }
     tempStr[i-1] = str[i];
   }
-  
+
   if (valid == 0){
     printf("%sinvalid input\n", str);
     return;
@@ -52,7 +55,7 @@ int main (){
     goto start;
     
   case '!':
-    if (isdigit(*(str+1))){
+    if (digit(*(str+1))){
       print_wanted_token(str, list);
       break;
     } else{

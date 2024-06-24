@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "history.h"
@@ -12,12 +11,20 @@ List* init_history(){
 
 /* Add a history item to the end of the list.
    List* list - the linked list
-   char* str - the string to store
-*/
+   char* str - the string to store */
 void add_history(List *list, char *str){
   Item *node = malloc(sizeof(Item));
-  node->str = malloc(100 * sizeof(char));
-  node->str = *str;
+
+  int len = 0;
+  while (str[len] != '\0') {
+    len++;
+  }
+
+  node->str = malloc((len + 1) * sizeof(char));
+  for (int i = 0; i <= len; i++) {
+    node->str[i] = str[i];
+  }
+
   node->next = NULL;
 
   if (list->root == NULL) {
